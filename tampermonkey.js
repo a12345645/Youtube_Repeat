@@ -213,6 +213,17 @@ button.tm_repeat_button:hover {
         <i class="fas fa-save"></i>
     </button>-->
 </span>
+
+<!-- 更多選項區塊 -->
+<div class="tm_repeat_more_content" style="display: none;">
+    <div id="tm_more_playlock" hidden>
+        <span data-title="打勾後將鎖定播放">播放鎖定</span>
+        <input type="checkbox">
+    </div>
+    <div id="tm_more_copy_share">
+        <span data-title="${locale.more_copy_share_title}">${locale.more_copy_share}</span>
+    </div>
+</div>
 `;
 
     let html_progressBar = `
