@@ -85,6 +85,8 @@
             more_copy_share: "copy link",
             more_copy_share_title: "copy link of this part",
             more_copy_share_copied: "copied",
+            save_to_cload_title: "save segment to cloud",
+            save_to_cload: "save segment",
             save_to_cload_successfully: "saved successfully",
             yes: "yes",
             name: "name",
