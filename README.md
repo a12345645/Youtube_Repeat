@@ -20,7 +20,7 @@ https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldm
 3. Update the `API` variable with the API URL.
 4. Save and you're done.
 
-### References
+## References
 - Modified from this article (in Chinese)
 https://home.gamer.com.tw/creationDetail.php?sn=4275263
 - Original script
