@@ -6,7 +6,7 @@ function doGet(request) {
   var callback = params.callback;
   var action = params.action;
   switch (action) {
-    case "new":
+    case "new": {
       let name = params.name;
       let url = params.url;
       let start = params.start;
@@ -14,7 +14,11 @@ function doGet(request) {
 
       addRowToSheet(name, url, start, end)
       return returnMsg(callback, "success")
-      break;
+    } break;
+    case "search": {
+      let url = params.url;
+      return returnMsg(callback, searchSheet(url))
+    } break;
     default:
       return returnMsg(callback, "failed");
   }
@@ -41,4 +45,17 @@ function addRowToSheet(name, url, start, end) {
   }
 
   sheet.getSheetByName(SHEETNAME).getRange(lastRow + 1, 1, 1, 4).setValues([[name, url, start, end]]);
+}
+
+function searchSheet(url) {
+  var sheet = SpreadsheetApp.openById(SPEADSHEETID);
+  var data = sheet.getDataRange().getValues();
+
+  var result = [];
+  for (var i = 0; i < data.length; i++) {
+    if (data[i][1] == url) {
+      result.push([data[i][0], data[i][1], data[i][2], data[i][3]]);
+    }
+  }
+  return result;
 }

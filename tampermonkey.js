@@ -73,6 +73,8 @@
             name: "名字",
             range: "範圍",
             name_empty: "請填入名字",
+            load_segment: "載入片段",
+            waiting: "等待中",
         },
         "en": {
             repeat_set_start: "set repeat start",
@@ -88,6 +90,8 @@
             name: "name",
             range: "range",
             name_empty: "please fill the name",
+            load_segment: "load segment",
+            waiting: "waiting",
         }
     }
 
@@ -279,12 +283,15 @@ button.tm_repeat_button:hover {
     <div id="tm_more_copy_share">
         <span data-title="${locale.more_copy_share_title}">${locale.more_copy_share}</span>
     </div>
+    <div id="tm_more_load_segment" onclick="tm_laod_click()">
+        <span data-title="${locale.load_segment}">${locale.load_segment}</span>
+    </div>
     <div id="tm_more_save_to_cloud" onclick="tm_save_click()">
         <span data-title="${locale.save_to_cload_title}">${locale.save_to_cload}</span>
     </div>
 </div>
 
-<div id="tm_save_list" class="tm_repeat_more_content" style="display: none;">
+<div id="tm_save_list" class="tm_repeat_more_content tm_repeat_more_expand" style="display: none;">
     <div id="tm_more_save_name">
         <span>${locale.name}</span>
         <input id="tm_save_input">
@@ -295,6 +302,10 @@ button.tm_repeat_button:hover {
     <div id="tm_more_save_enter" onclick="tm_save_to_cloud()">
         <span>${locale.yes}</span>
     </div>
+</div>
+
+<div id="tm_repeat_segment_list" class="tm_repeat_more_content tm_repeat_more_expand" style="display: none;">
+
 </div>
 `;
 
@@ -307,7 +318,7 @@ button.tm_repeat_button:hover {
 `;
 
     let js = `
-var API = 'https://script.google.com'
+var API = 'https://script.google.com/'
 var tm_startTime = 0;
 var tm_endTime = 0;
 var tm_video = document.querySelector("video");
@@ -334,13 +345,11 @@ if(${debug_mode}) {
 }
 // ${sp_debug_mode_end}
 
-var useUrlRepeat = false;
 // 若網址有 start 與 end 則執行（更多選項：複製連結）
 if(${tm_video_start_time} != null && ${tm_video_end_time} != null) {
     setRepeatStart(${tm_video_start_time});
     setRepeatEnd(${tm_video_end_time});
     setRepeat();
-    useUrlRepeat = true;
 }
 
 // 更多選項：複製連結
@@ -461,7 +470,7 @@ function readable(floatNum, precision=1){
 
 // 顯示成功訊息
 function showSuccess(message) {
-    var div = document.createElement('div');
+    let div = document.createElement('div');
     div.className = 'slidein-message success-message';
     div.innerHTML = '<p>' + message + '</p>';
     document.body.appendChild(div);
@@ -471,7 +480,7 @@ function showSuccess(message) {
 }
 
 function showError(message) {
-    var div = document.createElement('div');
+    let div = document.createElement('div');
     div.className = 'slidein-message error-message';
     div.innerHTML = '<p>' + message + '</p>';
     document.body.appendChild(div);
@@ -486,15 +495,23 @@ function tm_save_click() {
     let tm_save_content = document.querySelector("#tm_save_list");
 
     if (tm_save_content.style.display === "none") {
+        close_expand();
         tm_save_content.style.display = "inline-block";
         tm_save_content.style.left = (tm_repeat_more_list.offsetLeft + tm_repeat_more_list.offsetWidth) + "px";
         let range_block = document.querySelector("#tm_more_save_range")
         range_block.innerText = readable(tm_startTime) + '~' + readable(tm_endTime);
     } else {
-        tm_save_content.style.display = "none";
+        close_expand();
     }
 
     tm_more_save_button.classList.toggle("tm_repeat_more_open");
+}
+
+function close_expand() {
+    let tm_expand = document.querySelectorAll(".tm_repeat_more_expand");
+    for (let i = 0; i < tm_expand.length; i++) {
+        tm_expand[i].style.display = "none";
+    }
 }
 
 function tm_save_to_cloud() {
@@ -504,7 +521,7 @@ function tm_save_to_cloud() {
         return;
     }
 
-    var script = document.createElement('script');
+    let script = document.createElement('script');
     script.setAttribute('id', 'callback-script');
 
     script.src = API + '?callback=saveCloud&action=new&name=' + name +
@@ -513,9 +530,65 @@ function tm_save_to_cloud() {
 }
 
 function saveCloud(response) {
+    document.querySelector("#tm_save_input").value = "";
+    document.querySelector("#tm_save_list").style.display = "none";
+
     showSuccess("${locale.save_to_cload_successfully}")
-    var div = document.getElementById("callback-script");
+    let div = document.getElementById("callback-script");
     div.remove();
+}
+
+function tm_laod_click() {
+    let tm_repeat_more_list = document.querySelector("#tm_repeat_more_list");
+    let tm_segment_content = document.querySelector("#tm_repeat_segment_list");
+
+    if (tm_segment_content.style.display === "none") {
+        close_expand();
+        tm_segment_content.style.display = "inline-block";
+        tm_segment_content.style.left = (tm_repeat_more_list.offsetLeft + tm_repeat_more_list.offsetWidth) + "px";
+        
+        let script = document.createElement('script');
+        script.setAttribute('id', 'callback-script');
+
+        script.src = API + '?callback=loadCloud&action=search&url=' + window.location.href;
+        document.body.appendChild(script);
+        
+        tm_segment_content.innerHTML = "";
+
+        let div = document.createElement('div');
+        div.setAttribute("data-start", "1");
+        let span = document.createElement('span');
+        span.textContent = "${locale.waiting}";
+        div.appendChild(span);
+        tm_segment_content.appendChild(div);
+    } else {
+        close_expand();
+    }
+}
+
+function loadCloud(response) {
+    let message = response.message;
+    let tm_segment_content = document.querySelector("#tm_repeat_segment_list");
+    tm_segment_content.innerHTML = "";
+
+    for (let i = 0; i < message.length; i++) {
+        let div = document.createElement('div');
+        div.setAttribute("data-start", message[i][2]);
+        div.setAttribute("data-end", message[i][3]);
+        div.setAttribute("onclick", "load_segment_click(this)");
+        let span = document.createElement('span');
+        span.textContent = message[i][0];
+        div.appendChild(span);
+        tm_segment_content.appendChild(div);
+    }
+}
+
+function load_segment_click(button) {
+    let start = button.getAttribute("data-start");
+    let end = button.getAttribute("data-end");
+    setRepeatStart(parseFloat(start));
+    setRepeatEnd(parseFloat(end));
+    setRepeat();
 }
 `;
     GM_registerMenuCommand("Set Language", chooseLang);
