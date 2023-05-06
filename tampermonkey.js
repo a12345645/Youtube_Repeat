@@ -23,28 +23,28 @@
 // * 微調循環設定時間
 // * 循環接軌預覽 (預計前後各 5 秒)
 
-(function() {
+(function () {
     'use strict';
     // ================【全域設定】================ //
-    let tm_repeat_button_icon_size     = "18px";  // 設定按鈕圖示大小
-    let tm_repeat_button_size          = "24px";  // 設定按鈕長寬（需大於等於圖示大小）
+    let tm_repeat_button_icon_size = "18px";  // 設定按鈕圖示大小
+    let tm_repeat_button_size = "24px";  // 設定按鈕長寬（需大於等於圖示大小）
 
-    let tm_repeat_start_bg_color       = "#9920"; // 開始時間按鈕 背景顏色
-    let tm_repeat_end_bg_color         = "#9920"; // 結束時間按鈕 背景顏色
-    let tm_repeat_set_bg_color         = "#2d20"; // 執行循環按鈕 背景顏色
-    let tm_repeat_unset_bg_color       = "#d550"; // 解除循環按鈕 背景顏色
+    let tm_repeat_start_bg_color = "#9920"; // 開始時間按鈕 背景顏色
+    let tm_repeat_end_bg_color = "#9920"; // 結束時間按鈕 背景顏色
+    let tm_repeat_set_bg_color = "#2d20"; // 執行循環按鈕 背景顏色
+    let tm_repeat_unset_bg_color = "#d550"; // 解除循環按鈕 背景顏色
 
-    let tm_repeat_save_bg_color        = "#22e0"; // [TODOLIST] 儲存目前循環 背景顏色
+    let tm_repeat_save_bg_color = "#22e0"; // [TODOLIST] 儲存目前循環 背景顏色
 
-    let tm_repeat_start_color          = "#ffff"; // 開始時間按鈕 顏色
-    let tm_repeat_end_color            = "#ffff"; // 結束時間按鈕 顏色
-    let tm_repeat_set_color            = "#ffff"; // 執行循環按鈕 顏色
-    let tm_repeat_unset_color          = "#ffff"; // 解除循環按鈕 顏色
+    let tm_repeat_start_color = "#ffff"; // 開始時間按鈕 顏色
+    let tm_repeat_end_color = "#ffff"; // 結束時間按鈕 顏色
+    let tm_repeat_set_color = "#ffff"; // 執行循環按鈕 顏色
+    let tm_repeat_unset_color = "#ffff"; // 解除循環按鈕 顏色
 
-    let tm_repeat_save_color           = "#ffff"; // [TODOLIST] 儲存目前循環 顏色
+    let tm_repeat_save_color = "#ffff"; // [TODOLIST] 儲存目前循環 顏色
 
-    let tm_repeat_time_check_period    = 33;      // 檢查目前時間是否在指定重複範圍內。單位爲毫秒，預設爲 33 毫秒（約一秒檢查 30 次）。
-                                                  // 數值越小將能體驗更流暢的銜接，同時也越吃效能。
+    let tm_repeat_time_check_period = 33;      // 檢查目前時間是否在指定重複範圍內。單位爲毫秒，預設爲 33 毫秒（約一秒檢查 30 次）。
+    // 數值越小將能體驗更流暢的銜接，同時也越吃效能。
     // ================【Special】================ //
     let sp_debug_mode_begin = "";
     let sp_debug_mode_end = "";
@@ -65,7 +65,14 @@
             more: "更多選項",
             more_copy_share: "複製連結",
             more_copy_share_title: "複製此片段的連結",
-            more_copy_share_copied: "連結已複製"
+            more_copy_share_copied: "連結已複製",
+            save_to_cload_title: "保存片段至雲端",
+            save_to_cload: "保存片段",
+            save_to_cload_successfully: "成功保存",
+            yes: "確認",
+            name: "名字",
+            range: "範圍",
+            name_empty: "請填入名字",
         },
         "en": {
             repeat_set_start: "set repeat start",
@@ -75,14 +82,19 @@
             more: "more",
             more_copy_share: "copy link",
             more_copy_share_title: "copy link of this part",
-            more_copy_share_copied: "copied"
+            more_copy_share_copied: "copied",
+            save_to_cload_successfully: "saved successfully",
+            yes: "yes",
+            name: "name",
+            range: "range",
+            name_empty: "please fill the name",
         }
     }
 
     // ================【程式開始】================ //
 
     let locale = {};
-    if(GM_getValue("lang")){
+    if (GM_getValue("lang")) {
         let code = GM_getValue("lang");
         let selectLang = codeTable[code];
         locale = LOCALE[selectLang];
@@ -179,6 +191,50 @@ button.tm_repeat_button:hover {
 #tm_more_copy_share:hover {
     cursor: pointer;
 }
+
+.slidein-message {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    font-size: 20px;
+    transform: translateX(-50%);
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 5px;
+    border-radius: 15px;
+    animation: top-message-slidein 0.5s, top-message-fadeout 1s forwards 0.5s;
+    z-index: 9999;
+}
+
+.success-message {
+    background-color: rgba(0, 255, 0, 0.5);
+}
+
+.error-message {
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+@keyframes top-message-slidein {
+    from {
+        top: -100px;
+    }
+
+    to {
+        top: 0;
+    }
+}
+
+@keyframes top-message-fadeout {
+    0% {
+        opacity: 0.8;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
 `;
 
     let html_main = `
@@ -215,13 +271,29 @@ button.tm_repeat_button:hover {
 </span>
 
 <!-- 更多選項區塊 -->
-<div class="tm_repeat_more_content" style="display: none;">
+<div id="tm_repeat_more_list" class="tm_repeat_more_content" style="display: none;">
     <div id="tm_more_playlock" hidden>
         <span data-title="打勾後將鎖定播放">播放鎖定</span>
         <input type="checkbox">
     </div>
     <div id="tm_more_copy_share">
         <span data-title="${locale.more_copy_share_title}">${locale.more_copy_share}</span>
+    </div>
+    <div id="tm_more_save_to_cloud" onclick="tm_save_click()">
+        <span data-title="${locale.save_to_cload_title}">${locale.save_to_cload}</span>
+    </div>
+</div>
+
+<div id="tm_save_list" class="tm_repeat_more_content" style="display: none;">
+    <div id="tm_more_save_name">
+        <span>${locale.name}</span>
+        <input id="tm_save_input">
+    </div>
+    <div id="tm_more_save_range">
+        <span>${locale.range}:</span>
+    </div>
+    <div id="tm_more_save_enter" onclick="tm_save_to_cloud()">
+        <span>${locale.yes}</span>
     </div>
 </div>
 `;
@@ -235,6 +307,7 @@ button.tm_repeat_button:hover {
 `;
 
     let js = `
+var API = 'https://script.google.com'
 var tm_startTime = 0;
 var tm_endTime = 0;
 var tm_video = document.querySelector("video");
@@ -261,11 +334,13 @@ if(${debug_mode}) {
 }
 // ${sp_debug_mode_end}
 
+var useUrlRepeat = false;
 // 若網址有 start 與 end 則執行（更多選項：複製連結）
 if(${tm_video_start_time} != null && ${tm_video_end_time} != null) {
     setRepeatStart(${tm_video_start_time});
     setRepeatEnd(${tm_video_end_time});
     setRepeat();
+    useUrlRepeat = true;
 }
 
 // 更多選項：複製連結
@@ -347,13 +422,16 @@ function unsetRepeat(){
 // 點擊【更多設定】按鈕
 function tm_more_click() {
     let tm_more_button = document.querySelector("#tm_repeat_more");
-    let tm_more_content = document.querySelector(".tm_repeat_more_content");
+    let tm_more_content = document.querySelector("#tm_repeat_more_list");
 
     if (tm_more_content.style.display === "none") {
         tm_more_content.style.display = "inline-block";
         tm_more_content.style.left = tm_more_button.offsetLeft + "px";
     } else {
-        tm_more_content.style.display = "none";
+        let tm_more = document.querySelectorAll(".tm_repeat_more_content");
+        for (let i = 0; i < tm_more.length; i++) {
+            tm_more[i].style.display = "none";
+        }
     }
 
     tm_more_button.classList.toggle("tm_repeat_more_open");
@@ -380,15 +458,74 @@ function readable(floatNum, precision=1){
 
     return h + ":" + m + ":" + s;
 }
+
+// 顯示成功訊息
+function showSuccess(message) {
+    var div = document.createElement('div');
+    div.className = 'slidein-message success-message';
+    div.innerHTML = '<p>' + message + '</p>';
+    document.body.appendChild(div);
+    setTimeout(function () {
+        div.remove();
+    }, 2000);
+}
+
+function showError(message) {
+    var div = document.createElement('div');
+    div.className = 'slidein-message error-message';
+    div.innerHTML = '<p>' + message + '</p>';
+    document.body.appendChild(div);
+    setTimeout(function () {
+        div.remove();
+    }, 2000);
+}
+
+function tm_save_click() {
+    let tm_more_save_button = document.querySelector("#tm_repeat_more");
+    let tm_repeat_more_list = document.querySelector("#tm_repeat_more_list");
+    let tm_save_content = document.querySelector("#tm_save_list");
+
+    if (tm_save_content.style.display === "none") {
+        tm_save_content.style.display = "inline-block";
+        tm_save_content.style.left = (tm_repeat_more_list.offsetLeft + tm_repeat_more_list.offsetWidth) + "px";
+        let range_block = document.querySelector("#tm_more_save_range")
+        range_block.innerText = readable(tm_startTime) + '~' + readable(tm_endTime);
+    } else {
+        tm_save_content.style.display = "none";
+    }
+
+    tm_more_save_button.classList.toggle("tm_repeat_more_open");
+}
+
+function tm_save_to_cloud() {
+    let name = document.querySelector("#tm_save_input").value;
+    if (name === "") {
+        showError("${locale.name_empty}");
+        return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('id', 'callback-script');
+
+    script.src = API + '?callback=saveCloud&action=new&name=' + name +
+                '&url=' + window.location.href + '&start=' + tm_startTime + '&end=' + tm_endTime;
+    document.body.appendChild(script);
+}
+
+function saveCloud(response) {
+    showSuccess("${locale.save_to_cload_successfully}")
+    var div = document.getElementById("callback-script");
+    div.remove();
+}
 `;
     GM_registerMenuCommand("Set Language", chooseLang);
 
     let inserted = false;
 
-    let insertID = setInterval(function(){
+    let insertID = setInterval(function () {
         let url = location.href;
 
-        if(url.match(/youtube\.com\/watch/) != null){
+        if (url.match(/youtube\.com\/watch/) != null) {
             inserted = true;
             addStyleLink("https://use.fontawesome.com/releases/v5.7.0/css/all.css");
             addStyle(css, ".ytp-chrome-controls");
@@ -409,7 +546,7 @@ function readable(floatNum, precision=1){
             addScript(js, ".ytp-chrome-controls");
         }
 
-        if(inserted) {
+        if (inserted) {
             clearInterval(insertID);
         }
     }, 200);
@@ -417,7 +554,7 @@ function readable(floatNum, precision=1){
     function chooseLang() {
         let input = 0;
 
-        while(input <= 0 || input >= 3) {
+        while (input <= 0 || input >= 3) {
             input = prompt("（變更語言）請輸入語言代號\n(Change Language) Please input language code.\n(中文: 1, English: 2)", "");
         }
 
