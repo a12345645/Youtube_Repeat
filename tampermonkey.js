@@ -268,9 +268,6 @@ button.tm_repeat_button:hover {
     <button class="tm_repeat_button" id="tm_repeat_more" onclick="tm_more_click()" data-title="${locale.more}" style="background-color: ${tm_repeat_unset_bg_color}; font-size: ${tm_repeat_button_icon_size}; color: ${tm_repeat_unset_color};">
         <i class="fas fa-bars"></i>
     </button>
-    <span style="background-color: ${tm_repeat_unset_bg_color}; font-size: ${tm_repeat_button_icon_size}; color: ${tm_repeat_unset_color};">
-        <input id="tm_for_copy">
-    </span>
     <!-- [TODOLIST] <button class="tm_repeat_button" id="tm_repeat_unset" onclick="saveRepeatDialog()" data-title="儲存循環" style="background-color: ${tm_repeat_save_bg_color}; font-size: ${tm_repeat_button_icon_size}; color: ${tm_repeat_save_color};">
         <i class="fas fa-save"></i>
     </button>-->
@@ -326,7 +323,6 @@ var tm_endTime = 0;
 var tm_video = document.querySelector("video");
 var tm_interval_id = undefined;
 var tm_check_url = location.href;
-var tm_for_copy = document.querySelector("#tm_for_copy");
 
 document.querySelector("#tm_more_copy_share").addEventListener("click", copyShare);
 
@@ -357,9 +353,13 @@ if(${tm_video_start_time} != null && ${tm_video_end_time} != null) {
 // 更多選項：複製連結
 function copyShare() {
     let tm_video_id = new URL(location.href).searchParams.get("v");
-    tm_for_copy.value = "https://www.youtube.com/watch?v=" + tm_video_id + "&start=" + tm_startTime + "&end=" + tm_endTime;
-    tm_for_copy.select();
-    document.execCommand("copy");
+    
+    let input = document.createElement('input');
+    input.value = "https://www.youtube.com/watch?v=" + tm_video_id + "&start=" + tm_startTime + "&end=" + tm_endTime;
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('copy');
+    document.body.removeChild(input);
 
     // 提示：已複製連結
     document.querySelector("#tm_more_copy_share > span").innerText = "${locale.more_copy_share_copied}";
@@ -548,13 +548,13 @@ function tm_laod_click() {
         close_expand();
         tm_segment_content.style.display = "inline-block";
         tm_segment_content.style.left = (tm_repeat_more_list.offsetLeft + tm_repeat_more_list.offsetWidth) + "px";
-        
+
         let script = document.createElement('script');
         script.setAttribute('id', 'callback-script');
 
         script.src = API + '?callback=loadCloud&action=search&url=' + window.location.href;
         document.body.appendChild(script);
-        
+
         tm_segment_content.innerHTML = "";
 
         let div = document.createElement('div');
