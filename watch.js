@@ -317,7 +317,7 @@ button.tm_repeat_button:hover {
 `;
 
     let js = `
-var API = 'https://script.google.com/'
+var Google_API = 'https://script.google.com/XXX'
 var tm_startTime = 0;
 var tm_endTime = 0;
 var tm_video = document.querySelector("video");
@@ -526,7 +526,7 @@ function tm_save_to_cloud() {
     let script = document.createElement('script');
     script.setAttribute('id', 'callback-script');
 
-    script.src = API + '?callback=saveCloud&action=new&name=' + name +
+    script.src = Google_API + '?callback=saveCloud&action=new&name=' + name +
                 '&url=' + window.location.href + '&start=' + tm_startTime + '&end=' + tm_endTime;
     document.body.appendChild(script);
 }
@@ -552,7 +552,7 @@ function tm_laod_click() {
         let script = document.createElement('script');
         script.setAttribute('id', 'callback-script');
 
-        script.src = API + '?callback=loadCloud&action=search&url=' + window.location.href;
+        script.src = Google_API + '?callback=loadCloud&action=search&url=' + window.location.href;
         document.body.appendChild(script);
 
         tm_segment_content.innerHTML = "";
