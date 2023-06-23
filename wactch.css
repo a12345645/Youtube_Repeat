@@ -1,0 +1,134 @@
+/* 主要區塊 */
+#tm_main {
+    display: block;
+    padding-top: 2px;
+}
+
+/* 選取時間區塊 */
+#tm_select_time_range {
+
+}
+
+/* 主要按鈕群 */
+button.tm_repeat_button {
+    cursor: pointer;
+    width: ${tm_repeat_button_size} !important;
+    height: ${tm_repeat_button_size} !important;
+    font-size: ${tm_repeat_button_icon_size};
+    border: none;
+    outline: none;
+    user-select: none;
+    opacity: 0.8;
+    white-space: nowrap;
+}
+button.tm_repeat_button:hover {
+    opacity: 1;
+}
+[data-title] {
+    font-size: 30px;
+    position: relative;
+}
+:not(.tm_repeat_more_open)[data-title]:hover::before {
+    content: attr(data-title);
+    position: absolute;
+    bottom: 46px;
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 2px;
+    background: #222;
+    color: #fff;
+    font-size: 12px;
+    font-family: sans-serif;
+    white-space: nowrap;
+}
+
+.tm_repeat_popup {
+    position: absolute;
+    overflow: hidden;
+    border-radius: 2px;
+    background: rgba(28,28,28,.9);
+    text-shadow: 0 0 2px rgba(0,0,0,.5);
+    transition: opacity .1s cubic-bezier(0,0,.2,1);
+    -webkit-user-select: none;
+}
+
+/* 更多選項區塊 */
+.tm_repeat_more_menu {
+    /* .ytp-settings-menu */
+    right: 12px;
+    bottom: 61px;
+    z-index: 70;
+    will-change: width,height;
+    border-radius: 12px;
+
+    display: inline-block;
+    color: #fff;
+    font-size: 12px;
+    font-family: sans-serif;
+    white-space: nowrap;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.tm_repeat_more_menu > div {
+    user-select: none;
+    height: 32px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+.tm_repeat_more_menu > div:hover {
+    background-color: #5559;
+}
+
+/* 更多按鈕 - 細項（通用） */
+[id^="tm_more_"] > span {
+    font-size: 14px;
+}
+
+/* 更多按鈕 - 複製連結 */
+#tm_more_copy_share:hover {
+    cursor: pointer;
+}
+
+.slidein-message {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    font-size: 20px;
+    transform: translateX(-50%);
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 5px;
+    border-radius: 15px;
+    animation: top-message-slidein 0.5s, top-message-fadeout 1s forwards 0.5s;
+    z-index: 9999;
+}
+
+.success-message {
+    background-color: rgba(0, 255, 0, 0.5);
+}
+
+.error-message {
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+@keyframes top-message-slidein {
+    from {
+        top: -100px;
+    }
+
+    to {
+        top: 0;
+    }
+}
+
+@keyframes top-message-fadeout {
+    0% {
+        opacity: 0.8;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
