@@ -5,29 +5,31 @@
 }
 
 /* 選取時間區塊 */
-#tm_select_time_range {
-
-}
+#tm_select_time_range {}
 
 /* 主要按鈕群 */
 button.tm_repeat_button {
+    display: inline-block;
+    background-color:#fff;
     cursor: pointer;
-    width: ${tm_repeat_button_size} !important;
-    height: ${tm_repeat_button_size} !important;
-    font-size: ${tm_repeat_button_icon_size};
+    width: 44px;
+    font-size: 18px;
     border: none;
     outline: none;
     user-select: none;
     opacity: 0.8;
     white-space: nowrap;
 }
+
 button.tm_repeat_button:hover {
     opacity: 1;
 }
+
 [data-title] {
     font-size: 30px;
     position: relative;
 }
+
 :not(.tm_repeat_more_open)[data-title]:hover::before {
     content: attr(data-title);
     position: absolute;
@@ -42,45 +44,35 @@ button.tm_repeat_button:hover {
     white-space: nowrap;
 }
 
-.tm_repeat_popup {
-    position: absolute;
-    overflow: hidden;
-    border-radius: 2px;
-    background: rgba(28,28,28,.9);
-    text-shadow: 0 0 2px rgba(0,0,0,.5);
-    transition: opacity .1s cubic-bezier(0,0,.2,1);
-    -webkit-user-select: none;
-}
-
 /* 更多選項區塊 */
-.tm_repeat_more_menu {
-    /* .ytp-settings-menu */
-    right: 12px;
-    bottom: 61px;
-    z-index: 70;
-    will-change: width,height;
-    border-radius: 12px;
-
+.tm_repeat_more_content {
+    position: absolute;
+    bottom: 46px;
     display: inline-block;
+    border-radius: 2px;
+    background-color: #222d;
     color: #fff;
     font-size: 12px;
     font-family: sans-serif;
     white-space: nowrap;
+    z-index: 60;
     padding-top: 8px;
     padding-bottom: 8px;
 }
-.tm_repeat_more_menu > div {
+
+.tm_repeat_more_content>div {
     user-select: none;
     height: 32px;
     padding-left: 12px;
     padding-right: 12px;
 }
-.tm_repeat_more_menu > div:hover {
+
+.tm_repeat_more_content>div:hover {
     background-color: #5559;
 }
 
 /* 更多按鈕 - 細項（通用） */
-[id^="tm_more_"] > span {
+[id^="tm_more_"]>span {
     font-size: 14px;
 }
 
