@@ -105,17 +105,22 @@ function unsetRepeat() {
 }
 
 // 點擊【更多設定】按鈕
+
 function tm_more_popup_hide() {
-    var popup = document.getElementById("tm_more_popup");
-    var showPopupButton = document.getElementById("tm_repeat_more");
-    if (!popup.contains(event.target) && event.target !== showPopupButton) {
-        let tm_more = document.querySelectorAll(".tm_repeat_more_content");
-        for (let i = 0; i < tm_more.length; i++) {
-            tm_more[i].style.display = "none";
-        }
+    let tm_more = document.querySelectorAll(".tm_repeat_more_content");
+    for (let i = 0; i < tm_more.length; i++) {
+        tm_more[i].style.display = "none";
     }
 }
-document.addEventListener("click", tm_more_popup_hide);
+
+function tm_more_popup_listener() {
+    var popup = document.getElementById("tm_more_popup");
+    var showPopupButton = document.getElementById("tm_repeat_more");
+    if (!popup.contains(event.target) && !showPopupButton.contains(event.target)) {
+        tm_more_popup_hide();
+    }
+}
+document.addEventListener("click", tm_more_popup_listener);
 
 function tm_more_popup() {
     let tm_more_button = document.querySelector("#tm_repeat_more");
@@ -127,8 +132,6 @@ function tm_more_popup() {
     } else {
         tm_more_popup_hide();
     }
-
-    tm_more_button.classList.toggle("tm_repeat_more_open");
 }
 
 // 換頁時初始化所有循環設定

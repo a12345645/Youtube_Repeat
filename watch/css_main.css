@@ -4,9 +4,6 @@
     padding-top: 2px;
 }
 
-/* 選取時間區塊 */
-#tm_select_time_range {}
-
 /* 主要按鈕群 */
 button.tm_repeat_button {
     display: inline-block;
