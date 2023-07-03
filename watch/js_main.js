@@ -107,7 +107,7 @@ function unsetRepeat() {
 // 點擊【更多設定】按鈕
 
 function tm_more_popup_hide() {
-    let tm_more = document.querySelectorAll(".tm_repeat_more_content");
+    let tm_more = document.querySelectorAll(".tm_popup");
     for (let i = 0; i < tm_more.length; i++) {
         tm_more[i].style.display = "none";
     }

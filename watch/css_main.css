@@ -93,29 +93,27 @@ button.tm_repeat_button:hover {
 }
 
 /* 更多選項區塊 */
-.tm_repeat_more_content {
+.tm_popup {
     position: absolute;
-    bottom: 46px;
-    display: inline-block;
-    border-radius: 2px;
+    bottom: 61px;
+    width: 200px;
+    border-radius: 12px;
     background-color: #222d;
     color: #fff;
     font-size: 12px;
-    font-family: sans-serif;
-    white-space: nowrap;
     z-index: 60;
     padding-top: 8px;
     padding-bottom: 8px;
 }
 
-.tm_repeat_more_content>div {
+.tm_popup>div {
     user-select: none;
     height: 32px;
     padding-left: 12px;
     padding-right: 12px;
 }
 
-.tm_repeat_more_content>div:hover {
+.tm_popup>div:hover {
     background-color: #5559;
 }
 
