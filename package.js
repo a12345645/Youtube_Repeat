@@ -1,4 +1,4 @@
-//@header.js
+//#header.js
 
 (function () {
 //~watch

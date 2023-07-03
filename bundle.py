@@ -23,7 +23,7 @@ def make_bundle(work_space, input_path, output_path):
             if(len(line) >= 3 and line[:3] == '//~'):
                 import_path = line[3:].strip()
                 import_package(work_space, file, import_path)
-            elif(len(line) >= 3 and line[:3] == '//@'):
+            elif(len(line) >= 3 and line[:3] == '//#'):
                 file_name = line[3:].strip()
                 import_file(work_space, file, file_name)
             else:

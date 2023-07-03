@@ -8,22 +8,20 @@ if (GM_getValue("lang")) {
     locale = LOCALE.en;
 }
 
-let debug_mode = false;
-
 let tm_video_start_time = new URL(location.href).searchParams.get("start");
 let tm_video_end_time = new URL(location.href).searchParams.get("end");
 let tm_repeat_time_check_period = 33;
 
 let css_main = `
-//@css_main.css
+//#css_main.css
 `;
 
 let html_main = `
-//@html_main.html
+//#html_main.html
 `;
 
 let js_main = `
-//@js_main.js
+//#js_main.js
 `;
 GM_registerMenuCommand("Set Language", chooseLang);
 
