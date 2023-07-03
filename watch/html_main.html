@@ -28,14 +28,16 @@
 
 <!-- 更多選項區塊 -->
 <div id="tm_more_popup" class="tm_popup" style="display: none;">
-    <div id="tm_more_copy_share">
-        <span data-title="${locale.more_copy_share_title}">${locale.more_copy_share}</span>
-    </div>
-    <div id="tm_more_load_segment" onclick="tm_laod_click()">
-        <span data-title="${locale.load_segment}">${locale.load_segment}</span>
-    </div>
-    <div id="tm_more_save_to_cloud" onclick="tm_save_click()">
-        <span data-title="${locale.save_to_cload_title}">${locale.save_to_cload}</span>
+    <div class="tm_more_panel">
+        <div id="tm_more_copy_share" class="tm_more_contain" onclick="copyShare()">
+            <span">${locale.more_copy_share}</span>
+        </div>
+        <div id="tm_more_load_segment" class="tm_more_contain" onclick="tm_laod_click()">
+            <span">${locale.load_segment}</span>
+        </div>
+        <div id="tm_more_save_to_cloud" class="tm_more_contain" onclick="tm_save_click()">
+            <span>${locale.save_to_cload}</span>
+        </div>
     </div>
 </div>
 

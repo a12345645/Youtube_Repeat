@@ -6,8 +6,6 @@ var tm_interval_id = undefined;
 var tm_check_url = location.href;
 var tm_check_period = 33;
 
-document.querySelector("#tm_more_copy_share").addEventListener("click", copyShare);
-
 // check url per 0.1s
 setInterval(function () {
     let now_url = location.href;

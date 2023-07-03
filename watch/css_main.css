@@ -106,14 +106,14 @@ button.tm_repeat_button:hover {
     padding-bottom: 8px;
 }
 
-.tm_popup>div {
+.tm_more_contain {
     user-select: none;
     height: 32px;
     padding-left: 12px;
     padding-right: 12px;
 }
 
-.tm_popup>div:hover {
+.tm_more_contain:hover {
     background-color: #5559;
 }
 
