@@ -47,8 +47,6 @@ let insertID = setInterval(function () {
         newElement.innerHTML = html;
 
         container.insertBefore(newElement, lastChild);
-
-        // addHTML(html_main, ".ytp-chrome-controls");
         addScript(js_main, ".ytp-chrome-controls");
     }
 
@@ -69,31 +67,49 @@ function chooseLang() {
 }
 
 
-/* advideo */
-var advideo = false;
+// /* advideo */
+// var advideo = false;
 
-setTimeout(function () {
-    console.log("Removing All Youtbe Ad's!!");
-}, 4000);
+// setTimeout(function () {
+//     console.log("Removing All YouTube Ads!!");
+// }, 4000);
 
-function removead() {
-    $(".video-stream").attr("src", "");
-}
+// function removead() {
+//     var videoStream = document.querySelector(".video-stream");
+//     if (videoStream) {
+//         videoStream.removeAttribute("src");
+//     }
+// }
 
-(function () {
-    if ($(".videoAdUiRedesign")[0]) {
-        advideo = true;
-    } else {
-        advideo = false;
-    }
-    $("#player-ads").remove();
-    $("#masthead-ad").remove();
-    $("#offer-module").remove();
-    $(".video-ads").remove();
-    $("#pyv-watch-related-dest-url").remove();
+// (function () {
+//     if (document.querySelector(".videoAdUiRedesign")) {
+//         advideo = true;
+//     } else {
+//         advideo = false;
+//     }
+//     var playerAds = document.getElementById("player-ads");
+//     if (playerAds) {
+//         playerAds.remove();
+//     }
+//     var mastheadAd = document.getElementById("masthead-ad");
+//     if (mastheadAd) {
+//         mastheadAd.remove();
+//     }
+//     var offerModule = document.getElementById("offer-module");
+//     if (offerModule) {
+//         offerModule.remove();
+//     }
+//     var videoAds = document.querySelector(".video-ads");
+//     if (videoAds) {
+//         videoAds.remove();
+//     }
+//     var relatedDestUrl = document.getElementById("pyv-watch-related-dest-url");
+//     if (relatedDestUrl) {
+//         relatedDestUrl.remove();
+//     }
 
-    if (advideo == true) {
-        removead();
-    }
-    setTimeout(arguments.callee, 1000);
-})(1000);
+//     if (advideo == true) {
+//         removead();
+//     }
+//     setTimeout(arguments.callee, 1000);
+// })(1000);

@@ -8,7 +8,6 @@
 // @author               LianSheng
 // @match                *://*.youtube.com/*
 // @require              https://greasyfork.org/scripts/402133-toolbox/code/Toolbox.js
-// @require              http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js
 // @grant                GM_setValue
 // @grant                GM_getValue
 // @grant                GM_registerMenuCommand

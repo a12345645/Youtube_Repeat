@@ -10,15 +10,19 @@
 /* 主要按鈕群 */
 button.tm_repeat_button {
     display: inline-block;
-    background-color:#fff;
+    background-color: #fff0;
+    color: #FFF;
     cursor: pointer;
-    width: 44px;
+    height: 48px;
+    width: 48px;
     font-size: 18px;
     border: none;
     outline: none;
     user-select: none;
-    opacity: 0.8;
+    opacity: 0.9;
     white-space: nowrap;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 button.tm_repeat_button:hover {
@@ -42,6 +46,53 @@ button.tm_repeat_button:hover {
     font-size: 12px;
     font-family: sans-serif;
     white-space: nowrap;
+}
+
+.tm_loop_check_box[type=checkbox] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+.tm_loop_switch {
+    cursor: pointer;
+    width: 36px;
+    height: 14px;
+    background: grey;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+}
+
+.tm_loop_switch:after {
+    content: '';
+    position: absolute;
+    top: -3.5px;
+    width: 20px;
+    height: 20px;
+    background: rgb(200, 200, 200);
+    border-radius: 9px;
+    transition: 0.1s;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IS0tIFVwbG9hZGVkIHRvOiBTVkcgUmVwbywgd3d3LnN2Z3JlcG8uY29tLCBHZW5lcmF0b3I6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPg0KPHN2ZyB3aWR0aD0iODAwcHgiIGhlaWdodD0iODAwcHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIG9wYWNpdHk9IjAuMTUiIGQ9Ik0yMSAxMkMyMSAxNi45NzA2IDE2Ljk3MDYgMjEgMTIgMjFDNy4wMjk0NCAyMSAzIDE2Ljk3MDYgMyAxMkMzIDcuMDI5NDQgNy4wMjk0NCAzIDEyIDNDMTYuOTcwNiAzIDIxIDcuMDI5NDQgMjEgMTJaIiBmaWxsPSIjMDAwMDAwIi8+DQo8cGF0aCBkPSJNMTYgOEw4IDE2TTguMDAwMDEgOEwxNiAxNk0yMSAxMkMyMSAxNi45NzA2IDE2Ljk3MDYgMjEgMTIgMjFDNy4wMjk0NCAyMSAzIDE2Ljk3MDYgMyAxMkMzIDcuMDI5NDQgNy4wMjk0NCAzIDEyIDNDMTYuOTcwNiAzIDIxIDcuMDI5NDQgMjEgMTJaIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4NCjwvc3ZnPg==);
+}
+
+.tm_loop_check_box:checked+.tm_loop_switch:after {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IS0tIFVwbG9hZGVkIHRvOiBTVkcgUmVwbywgd3d3LnN2Z3JlcG8uY29tLCBHZW5lcmF0b3I6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPg0KPHN2ZyB3aWR0aD0iODAwcHgiIGhlaWdodD0iODAwcHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIG9wYWNpdHk9IjAuMSIgZD0iTTIxIDEyQzIxIDE2Ljk3MDYgMTYuOTcwNiAyMSAxMiAyMUM3LjAyOTQ0IDIxIDMgMTYuOTcwNiAzIDEyQzMgNy4wMjk0NCA3LjAyOTQ0IDMgMTIgM0MxNi45NzA2IDMgMjEgNy4wMjk0NCAyMSAxMloiIGZpbGw9IiMzMjMyMzIiLz4NCjxwYXRoIGQ9Ik0yMSAxMkMyMSAxNi45NzA2IDE2Ljk3MDYgMjEgMTIgMjFDNy4wMjk0NCAyMSAzIDE2Ljk3MDYgMyAxMkMzIDcuMDI5NDQgNy4wMjk0NCAzIDEyIDNDMTYuOTcwNiAzIDIxIDcuMDI5NDQgMjEgMTJaIiBzdHJva2U9IiMzMjMyMzIiIHN0cm9rZS13aWR0aD0iMiIvPg0KPHBhdGggZD0iTTkgMTJMMTAuNjgyOCAxMy42ODI4VjEzLjY4MjhDMTAuODU4IDEzLjg1OCAxMS4xNDIgMTMuODU4IDExLjMxNzIgMTMuNjgyOFYxMy42ODI4TDE1IDEwIiBzdHJva2U9IiMzMjMyMzIiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+DQo8L3N2Zz4=);
+}
+
+.tm_loop_check_box:checked+.tm_loop_switch {
+    background: #fff;
+}
+
+.tm_loop_check_box:checked+.tm_loop_switch:after {
+    left: calc(100%);
+    transform: translateX(-100%);
 }
 
 /* 更多選項區塊 */

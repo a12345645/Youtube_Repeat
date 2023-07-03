@@ -632,32 +632,4 @@ function load_segment_click(button) {
         alert("語言已變更。重整頁面後才會生效。\nLanguage changed. Page refresh required.");
         GM_setValue("lang", input);
     }
-
-    var advideo = false;
-
-    setTimeout(function () {
-        console.log("Removing All Youtbe Ad's!!");
-    }, 4000);
-
-    function removead() {
-        $(".video-stream").attr("src", "");
-    }
-
-    (function () {
-        if ($(".videoAdUiRedesign")[0]) {
-            advideo = true;
-        } else {
-            advideo = false;
-        }
-        $("#player-ads").remove();
-        $("#masthead-ad").remove();
-        $("#offer-module").remove();
-        $(".video-ads").remove();
-        $("#pyv-watch-related-dest-url").remove();
-
-        if (advideo == true) {
-            removead();
-        }
-        setTimeout(arguments.callee, 1000);
-    })(1000);
 })();

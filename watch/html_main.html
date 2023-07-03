@@ -1,5 +1,4 @@
-<!-- html_main -->
-
+<!-- 影片下方選項列 -->
 <span id="tm_main" style="user-select: none;">
     <span id="tm_debug_current_time"></span>
     <button class="tm_repeat_button" id="tm_repeat_set_start" onclick="setRepeatStart()"
@@ -22,23 +21,22 @@
     <button class="tm_repeat_button" id="tm_repeat_unset" onclick="unsetRepeat()" data-title="${locale.repeat_unset}">
         <i class="fas fa-times"></i>
     </button>
-    <button class="tm_repeat_button" id="tm_repeat_more" onclick="tm_more_click()" data-title="${locale.more}">
+
+    <button class="tm_repeat_button" id="tm_repeat_more" onclick="tm_more_popup()" data-title="${locale.more}">
         <i class="fas fa-bars"></i>
     </button>
 </span>
 
 <!-- 更多選項區塊 -->
-<div id="tm_repeat_more_list" class="tm_repeat_more_content" style="display: none;">
-    <div class="tm_repeat_more_content" style="display: none;">
-        <div id="tm_more_copy_share">
-            <span data-title="${locale.more_copy_share_title}">${locale.more_copy_share}</span>
-        </div>
-        <div id="tm_more_load_segment" onclick="tm_laod_click()">
-            <span data-title="${locale.load_segment}">${locale.load_segment}</span>
-        </div>
-        <div id="tm_more_save_to_cloud" onclick="tm_save_click()">
-            <span data-title="${locale.save_to_cload_title}">${locale.save_to_cload}</span>
-        </div>
+<div id="tm_more_popup" class="tm_repeat_more_content" style="display: none;">
+    <div id="tm_more_copy_share">
+        <span data-title="${locale.more_copy_share_title}">${locale.more_copy_share}</span>
+    </div>
+    <div id="tm_more_load_segment" onclick="tm_laod_click()">
+        <span data-title="${locale.load_segment}">${locale.load_segment}</span>
+    </div>
+    <div id="tm_more_save_to_cloud" onclick="tm_save_click()">
+        <span data-title="${locale.save_to_cload_title}">${locale.save_to_cload}</span>
     </div>
 </div>
 
@@ -54,8 +52,4 @@
     <div id="tm_more_save_enter" onclick="tm_save_to_cloud()">
         <span>${locale.yes}</span>
     </div>
-</div>
-
-<div id="tm_repeat_segment_list" class="tm_repeat_more_content tm_repeat_more_expand" style="display: none;">
-
 </div>

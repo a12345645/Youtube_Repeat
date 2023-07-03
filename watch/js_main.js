@@ -4,23 +4,23 @@ var tm_endTime = 0;
 var tm_video = document.querySelector("video");
 var tm_interval_id = undefined;
 var tm_check_url = location.href;
-let tm_check_period = 33;
+var tm_check_period = 33;
 
 document.querySelector("#tm_more_copy_share").addEventListener("click", copyShare);
 
 // check url per 0.1s
-setInterval(function(){
+setInterval(function () {
     let now_url = location.href;
-    if(now_url != tm_check_url) {
+    if (now_url != tm_check_url) {
         changePageInit();
         tm_check_url = now_url;
     }
 }, 100)
 
 // 若網址有 start 與 end 則執行（更多選項：複製連結）
-if(${tm_video_start_time} != null && ${tm_video_end_time} != null) {
-    setRepeatStart(${tm_video_start_time});
-    setRepeatEnd(${tm_video_end_time});
+if (${ tm_video_start_time } != null && ${ tm_video_end_time } != null) {
+    setRepeatStart(${ tm_video_start_time });
+    setRepeatEnd(${ tm_video_end_time });
     setRepeat();
 }
 
@@ -40,19 +40,19 @@ function copyShare() {
     document.querySelector("#tm_more_copy_share > span").style.color = "#f55";
 
     // 恢復原始樣貌
-    setTimeout(function(){
+    setTimeout(function () {
         document.querySelector("#tm_more_copy_share > span").innerText = "${locale.more_copy_share}";
         document.querySelector("#tm_more_copy_share > span").style.color = "#fff";
     }, 3000);
 }
 
 // 設定開始時間
-function setRepeatStart(time=""){
-    if(time == ""){
+function setRepeatStart(time = "") {
+    if (time == "") {
         document.querySelector("#tm_repeat_start_time").innerText = readable(tm_video.currentTime);
         tm_startTime = tm_video.currentTime;
 
-        if(tm_startTime > tm_endTime) {
+        if (tm_startTime > tm_endTime) {
             tm_endTime = tm_startTime;
             document.querySelector("#tm_repeat_end_time").innerText = readable(tm_video.currentTime);
         }
@@ -60,7 +60,7 @@ function setRepeatStart(time=""){
         document.querySelector("#tm_repeat_start_time").innerText = readable(time);
         tm_startTime = time;
 
-        if(tm_startTime > tm_endTime) {
+        if (tm_startTime > tm_endTime) {
             tm_endTime = tm_startTime;
             document.querySelector("#tm_repeat_end_time").innerText = readable(time);
         }
@@ -68,12 +68,12 @@ function setRepeatStart(time=""){
 }
 
 // 設定結束時間
-function setRepeatEnd(time=""){
-    if(time == ""){
+function setRepeatEnd(time = "") {
+    if (time == "") {
         document.querySelector("#tm_repeat_end_time").innerText = readable(tm_video.currentTime);
         tm_endTime = tm_video.currentTime;
 
-        if(tm_endTime < tm_startTime) {
+        if (tm_endTime < tm_startTime) {
             tm_startTime = tm_endTime;
             document.querySelector("#tm_repeat_start_time").innerText = readable(tm_video.currentTime);
         }
@@ -81,7 +81,7 @@ function setRepeatEnd(time=""){
         document.querySelector("#tm_repeat_end_time").innerText = readable(time);
         tm_endTime = time;
 
-        if(tm_endTime < tm_startTime) {
+        if (tm_endTime < tm_startTime) {
             tm_startTime = tm_endTime;
             document.querySelector("#tm_repeat_start_time").innerText = readable(time);
         }
@@ -89,41 +89,50 @@ function setRepeatEnd(time=""){
 }
 
 // 執行重複播放
-function setRepeat(){
-    if(tm_interval_id != undefined) clearInterval(tm_interval_id);
+function setRepeat() {
+    if (tm_interval_id != undefined) clearInterval(tm_interval_id);
 
     // check video duration per ${tm_repeat_time_check_period} ms
-    tm_interval_id = setInterval(function(){
-        if(tm_video.currentTime < tm_startTime || tm_video.currentTime > tm_endTime) tm_video.currentTime = tm_startTime;
+    tm_interval_id = setInterval(function () {
+        if (tm_video.currentTime < tm_startTime || tm_video.currentTime > tm_endTime) tm_video.currentTime = tm_startTime;
     }, tm_check_period)
 }
 
 // 解除重複播放
-function unsetRepeat(){
+function unsetRepeat() {
     clearInterval(tm_interval_id);
     tm_interval_id = undefined;
 }
 
 // 點擊【更多設定】按鈕
-function tm_more_click() {
+function tm_more_popup_hide() {
+    var popup = document.getElementById("tm_more_popup");
+    var showPopupButton = document.getElementById("tm_repeat_more");
+    if (!popup.contains(event.target) && event.target !== showPopupButton) {
+        let tm_more = document.querySelectorAll(".tm_repeat_more_content");
+        for (let i = 0; i < tm_more.length; i++) {
+            tm_more[i].style.display = "none";
+        }
+    }
+}
+document.addEventListener("click", tm_more_popup_hide);
+
+function tm_more_popup() {
     let tm_more_button = document.querySelector("#tm_repeat_more");
-    let tm_more_content = document.querySelector("#tm_repeat_more_list");
+    let tm_more_content = document.querySelector("#tm_more_popup");
 
     if (tm_more_content.style.display === "none") {
         tm_more_content.style.display = "inline-block";
         tm_more_content.style.left = tm_more_button.offsetLeft + "px";
     } else {
-        let tm_more = document.querySelectorAll(".tm_repeat_more_content");
-        for (let i = 0; i < tm_more.length; i++) {
-            tm_more[i].style.display = "none";
-        }
+        tm_more_popup_hide();
     }
 
     tm_more_button.classList.toggle("tm_repeat_more_open");
 }
 
 // 換頁時初始化所有循環設定
-function changePageInit(){
+function changePageInit() {
     clearInterval(tm_interval_id);
     tm_interval_id = undefined;
     tm_startTime = 0;
@@ -133,13 +142,13 @@ function changePageInit(){
 }
 
 // 可視化：預設精度爲 0.1 秒
-function readable(floatNum, precision=1){
+function readable(floatNum, precision = 1) {
     let h = parseInt(floatNum / 3600);
-    let m = parseInt((floatNum - h*3600) / 60);
-    let s = parseFloat(floatNum - h*3600 - m*60).toFixed(precision);
+    let m = parseInt((floatNum - h * 3600) / 60);
+    let s = parseFloat(floatNum - h * 3600 - m * 60).toFixed(precision);
 
-    if(m < 10) m = "0" + m;
-    if(s < 10) s = "0" + s;
+    if (m < 10) m = "0" + m;
+    if (s < 10) s = "0" + s;
 
     return h + ":" + m + ":" + s;
 }
@@ -201,7 +210,7 @@ function tm_save_to_cloud() {
     script.setAttribute('id', 'callback-script');
 
     script.src = Google_API + '?callback=saveCloud&action=new&name=' + name +
-                '&url=' + window.location.href + '&start=' + tm_startTime + '&end=' + tm_endTime;
+        '&url=' + window.location.href + '&start=' + tm_startTime + '&end=' + tm_endTime;
     document.body.appendChild(script);
 }
 
