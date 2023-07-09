@@ -29,11 +29,5 @@ https://greasyfork.org/zh-TW/scripts/402133-toolbox/code
 https://developers.google.com/apps-script/guides/services/quotas?hl=zh-tw
 - ADs blocker
 https://greasyfork.org/en/scripts/27199-remove-youtube-ads-works
-
-https://nodejs.org/en
-https://cn.vitejs.dev/guide/
-https://www.cnblogs.com/himeka/p/16307094.html
-
-npm install vite
-npm install less
-npm run build
+- svg source
+https://www.svgrepo.com/
