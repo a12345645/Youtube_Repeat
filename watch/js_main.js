@@ -123,7 +123,9 @@ function tm_more_popup_listener() {
         tm_more_popup_hide();
     }
 }
-document.addEventListener("click", tm_more_popup_listener);
+
+// 點集集其他地方關掉 popup
+document.addEventListener("mousedown", tm_more_popup_listener);
 
 function tm_more_popup() {
     let tm_more_button = document.querySelector("#tm_repeat_more");
@@ -181,21 +183,13 @@ function showError(message) {
 }
 
 function tm_save_click() {
-    let tm_more_save_button = document.querySelector("#tm_repeat_more");
-    let tm_repeat_more_list = document.querySelector("#tm_repeat_more_list");
-    let tm_save_content = document.querySelector("#tm_save_list");
+    let popup = document.getElementById("tm_more_popup");
+    popup.innerHTML = ' \
+//# tm_save_list.html \
+    ';
 
-    if (tm_save_content.style.display === "none") {
-        close_expand();
-        tm_save_content.style.display = "inline-block";
-        tm_save_content.style.left = (tm_repeat_more_list.offsetLeft + tm_repeat_more_list.offsetWidth) + "px";
-        let range_block = document.querySelector("#tm_more_save_range")
-        range_block.innerText = readable(tm_startTime) + '~' + readable(tm_endTime);
-    } else {
-        close_expand();
-    }
-
-    tm_more_save_button.classList.toggle("tm_repeat_more_open");
+    let range_block = document.querySelector("#tm_more_save_range")
+    range_block.innerText = readable(tm_startTime) + '~' + readable(tm_endTime);
 }
 
 function close_expand() {

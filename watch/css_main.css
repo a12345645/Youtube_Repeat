@@ -119,6 +119,7 @@ button.tm_repeat_button:hover {
     padding-right: 10px;
     padding-left: 10px;
     height: 40px;
+    width: 24px;
 }
 
 .tm_more_contain_icon>svg {
@@ -129,6 +130,22 @@ button.tm_repeat_button:hover {
 
 .tm_more_contain_label {
     padding-right: 15px;
+}
+
+.tm_more_contain_content {
+    text-align: right;
+    padding-right: 15px;
+    padding-left: 15px;
+    max-width: 150px;
+}
+
+.tm_more_contain_content>input {
+    max-width: 150px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid white;
 }
 
 .tm_more_contain:hover {
