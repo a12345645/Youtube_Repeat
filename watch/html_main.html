@@ -2,27 +2,52 @@
     <span id="tm_debug_current_time"></span>
     <button class="tm_repeat_button" id="tm_repeat_set_start" onclick="setRepeatStart()"
         data-title="${locale.repeat_set_start}">
-        <i class="fas fa-sign-out-alt"></i>
+        <svg viewBox="0 0 24 24" focusable="false" data-title="${locale.repeat_set_start}">
+            <g>
+                <path d="M3 3V21M21 12H7M7 12L14 19M7 12L14 5" stroke="#FFFFFF" fill="#ffffff" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+        </svg>
     </button>
+
     <button class="tm_repeat_button" id="tm_repeat_set_end" onclick="setRepeatEnd()"
         data-title="${locale.repeat_set_end}">
-        <i class="fas fa-sign-in-alt"></i>
+        <svg viewBox="0 0 24 24" focusable="false" data-title="${locale.repeat_set_start}">
+            <g>
+                <path d="M21 21V3M3 12H17M17 12L10 5M17 12L10 19" stroke="#FFFFFF" fill="#ffffff" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+        </svg>
     </button>
-    <span id="tm_select_time_range">
-        <span>&nbsp;</span>
-        <span id="tm_repeat_start_time">0:00:00.0</span>
-        <span> ~ </span>
-        <span id="tm_repeat_end_time">0:00:00.0</span>
-    </span>
+
+    <div class="tm_time_display">
+        <span id="tm_select_time_range">
+            <span>&nbsp;</span>
+            <span id="tm_repeat_start_time">0:00:00.0</span>
+            <span> ~ </span>
+            <span id="tm_repeat_end_time">0:00:00.0</span>
+        </span>
+    </div>
+
     <button class="tm_repeat_button" id="tm_repeat_set" onclick="setRepeat()" data-title="${locale.repeat_set}">
-        <i class="fas fa-check"></i>
-    </button>
-    <button class="tm_repeat_button" id="tm_repeat_unset" onclick="unsetRepeat()" data-title="${locale.repeat_unset}">
-        <i class="fas fa-times"></i>
+        <svg viewBox="0 0 24 24" focusable="false">
+            <g>
+                <path
+                    d="M11 2L14 5M14 5L11 8M14 5H6.8C5.11984 5 4.27976 5 3.63803 5.32698C3.07354 5.6146 2.6146 6.07354 2.32698 6.63803C2 7.27976 2 8.11984 2 9.8V15.5C2 15.9644 2 16.1966 2.02567 16.3916C2.2029 17.7378 3.26222 18.7971 4.60842 18.9743C4.80337 19 5.03558 19 5.5 19M10 19H17.2C18.8802 19 19.7202 19 20.362 18.673C20.9265 18.3854 21.3854 17.9265 21.673 17.362C22 16.7202 22 15.8802 22 14.2V8.5C22 8.03558 22 7.80337 21.9743 7.60842C21.7971 6.26222 20.7378 5.2029 19.3916 5.02567C19.1966 5 18.9644 5 18.5 5M10 19L13 22M10 19L13 16"
+                    stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    fill="rgba(0, 0, 0, 0)"></path>
+            </g>
+        </svg>
     </button>
 
     <button class="tm_repeat_button" id="tm_repeat_more" onclick="tm_more_popup()" data-title="${locale.more}">
-        <i class="fas fa-bars"></i>
+        <svg viewBox="0 0 24 24" focusable="false">
+            <g>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M2.25 6C2.25 5.58579 2.58579 5.25 3 5.25H20C20.4142 5.25 20.75 5.58579 20.75 6C20.75 6.41421 20.4142 6.75 20 6.75H3C2.58579 6.75 2.25 6.41421 2.25 6ZM2.25 11C2.25 10.5858 2.58579 10.25 3 10.25H20C20.4142 10.25 20.75 10.5858 20.75 11C20.75 11.4142 20.4142 11.75 20 11.75H3C2.58579 11.75 2.25 11.4142 2.25 11ZM17.0119 14.4306C17.2928 14.1898 17.7072 14.1898 17.9881 14.4306L21.4881 17.4306C21.8026 17.7001 21.839 18.1736 21.5694 18.4881C21.2999 18.8026 20.8264 18.839 20.5119 18.5694L17.5 15.9878L14.4881 18.5694C14.1736 18.839 13.7001 18.8026 13.4306 18.4881C13.161 18.1736 13.1974 17.7001 13.5119 17.4306L17.0119 14.4306ZM2.25 16C2.25 15.5858 2.58579 15.25 3 15.25H11C11.4142 15.25 11.75 15.5858 11.75 16C11.75 16.4142 11.4142 16.75 11 16.75H3C2.58579 16.75 2.25 16.4142 2.25 16Z"
+                    stroke="#ffffff" fill="#ffffff"></path>
+            </g>
+        </svg>
     </button>
 </span>
 
