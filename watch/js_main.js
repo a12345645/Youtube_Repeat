@@ -87,19 +87,51 @@ function setRepeatEnd(time = "") {
 }
 
 // 執行重複播放
-function setRepeat() {
+function setRepeat(element) {
     if (tm_interval_id != undefined) clearInterval(tm_interval_id);
 
-    // check video duration per ${tm_repeat_time_check_period} ms
-    tm_interval_id = setInterval(function () {
-        if (tm_video.currentTime < tm_startTime || tm_video.currentTime > tm_endTime) tm_video.currentTime = tm_startTime;
-    }, tm_check_period)
-}
+    var title = element.getAttribute("data-title");
+    var svgElement = element.querySelector("svg");
+    console.log(svgElement);
+    if (title != "${ locale.repeat_set }") {
+        element.setAttribute("data-title", "${locale.repeat_set}");
+        // check video duration per ${tm_repeat_time_check_period} ms
+        tm_interval_id = setInterval(function () {
+            if (tm_video.currentTime < tm_startTime || tm_video.currentTime > tm_endTime) tm_video.currentTime = tm_startTime;
+        }, tm_check_period)
+        
+        svgElement.innerHTML = '';
 
-// 解除重複播放
-function unsetRepeat() {
-    clearInterval(tm_interval_id);
-    tm_interval_id = undefined;
+        var gElement = document.createElementNS("http://www.w3.org/2000/svg", "g");
+
+        var path1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path1.setAttribute("d", "M16 17V9C16 7.89545 15.1046 7 14 7H13V5H14C16.2092 5 18 6.79085 18 9V17H20L17 20L14 17H16ZM8 7V15C8 16.1046 8.89545 17 10 17H11V19H10C7.79085 19 6 17.2092 6 15V7H4L7 4L10 7H8Z");
+        gElement.appendChild(path1);
+
+        svgElement.appendChild(gElement);
+    } else {
+        element.setAttribute("data-title", "${locale.repeat_unset}");
+        clearInterval(tm_interval_id);
+        tm_interval_id = undefined;
+
+        svgElement.innerHTML = '';
+
+        var gElement = document.createElementNS("http://www.w3.org/2000/svg", "g");
+
+        var path1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path1.setAttribute("d", "M7.999 15V7H9.999L6.999 4L3.99902 7H5.999V15C5.999 17.2092 7.7899 19 9.999 19H10.999V17H9.999C8.89445 17 7.999 16.1046 7.999 15Z");
+        gElement.appendChild(path1);
+
+        var path2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path2.setAttribute("d", "M17.999 13.1264V9C17.999 6.79085 16.2082 5 13.999 5H12.999V7H13.999C15.1036 7 15.999 7.89545 15.999 9V13.1265C16.3187 13.0442 16.6539 13.0004 16.9993 13.0004C17.3445 13.0004 17.6795 13.0441 17.999 13.1264Z");
+        gElement.appendChild(path2);
+
+        var path3 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path3.setAttribute("d", "M20.0702 15.8288L18.656 17.243L20.0702 18.6572L18.656 20.0715L17.2418 18.6572L15.8276 20.0715L14.4133 18.6572L15.8276 17.243L14.4133 15.8288L15.8276 14.4146L17.2418 15.8288L18.656 14.4146L20.0702 15.8288Z");
+        gElement.appendChild(path3);
+
+        svgElement.appendChild(gElement);
+    }
 }
 
 // 點擊【更多設定】按鈕
