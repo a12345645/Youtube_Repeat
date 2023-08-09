@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 
 def check_exists_exit(import_path):
     if not os.path.exists(import_path):
@@ -66,7 +67,13 @@ def import_package(work_space, file, path):
     make_bundle(path, path + '.js', tmp_filename)
     import_file(work_space, file, tmp_filename)
 
-main_path = 'package.js'
+arguments = sys.argv
+if len(arguments) <= 1:
+    print('not input file')
+    exit(0)
+
+
+main_path = arguments[1]
 output_path = 'out.js'
 
 make_bundle('.', main_path, output_path)
