@@ -1,6 +1,6 @@
 <span id="tm_main" style="user-select: none;">
     <span id="tm_debug_current_time"></span>
-    <button class="tm_repeat_button" id="tm_repeat_set_start" onclick="setRepeatStart()"
+    <button class="tm_button" id="tm_repeat_set_start" onclick="setRepeatStart()"
         data-title="${locale.repeat_set_start}">
         <svg viewBox="0 0 24 24" focusable="false" data-title="${locale.repeat_set_start}">
             <g>
@@ -10,7 +10,7 @@
         </svg>
     </button>
 
-    <button class="tm_repeat_button" id="tm_repeat_set_end" onclick="setRepeatEnd()"
+    <button class="tm_button" id="tm_repeat_set_end" onclick="setRepeatEnd()"
         data-title="${locale.repeat_set_end}">
         <svg viewBox="0 0 24 24" focusable="false" data-title="${locale.repeat_set_start}">
             <g>
@@ -29,7 +29,7 @@
         </span>
     </div>
 
-    <button class="tm_repeat_button" onclick="setRepeat(this)" data-title="${locale.repeat_unset}">
+    <button id="tm_repeat_button" class="tm_button" onclick="setRepeat()" data-title="${locale.repeat_unset}">
         <svg fill="#FFFFFF" viewBox="0 0 24 24" stroke="#FFFFFF">
             <g>
                 <path
@@ -45,7 +45,7 @@
         </svg>
     </button>
 
-    <button class="tm_repeat_button" id="tm_repeat_more" onclick="tm_more_popup()" data-title="${locale.more}">
+    <button class="tm_button" id="tm_repeat_more" onclick="tm_more_popup()" data-title="${locale.more}">
         <svg viewBox="0 0 24 24" focusable="false">
             <g>
                 <path fill-rule="evenodd" clip-rule="evenodd"

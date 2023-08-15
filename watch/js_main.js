@@ -87,13 +87,13 @@ function setRepeatEnd(time = "") {
 }
 
 // 執行重複播放
-function setRepeat(element) {
+function setRepeat() {
     if (tm_interval_id != undefined) clearInterval(tm_interval_id);
-
-    var title = element.getAttribute("data-title");
-    var svgElement = element.querySelector("svg");
+    tm_repeat_button = document.getElementById("tm_repeat_button");
+    var title = tm_repeat_button.getAttribute("data-title");
+    var svgElement = tm_repeat_button.querySelector("svg");
     if (title != "${ locale.repeat_set }") {
-        element.setAttribute("data-title", "${locale.repeat_set}");
+        tm_repeat_button.setAttribute("data-title", "${locale.repeat_set}");
         // check video duration per ${tm_repeat_time_check_period} ms
         tm_interval_id = setInterval(function () {
             if (tm_video.currentTime < tm_startTime || tm_video.currentTime > tm_endTime) tm_video.currentTime = tm_startTime;
@@ -109,7 +109,7 @@ function setRepeat(element) {
 
         svgElement.appendChild(gElement);
     } else {
-        element.setAttribute("data-title", "${locale.repeat_unset}");
+        tm_repeat_button.setAttribute("data-title", "${locale.repeat_unset}");
         clearInterval(tm_interval_id);
         tm_interval_id = undefined;
 

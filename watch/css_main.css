@@ -15,7 +15,7 @@
     line-height: 47px;
 }
 
-button.tm_repeat_button {
+button.tm_button {
     display: inline-block;
     background-color: #fff0;
     color: #FFF;
@@ -33,11 +33,11 @@ button.tm_repeat_button {
     padding-right: 2px;
 }
 
-button.tm_repeat_button:hover {
+button.tm_button:hover {
     opacity: 1;
 }
 
-.tm_repeat_button>svg {
+.tm_button>svg {
     max-width: 24px;
     max-height: 24px;
 }
