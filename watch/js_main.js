@@ -94,10 +94,7 @@ function setRepeat() {
     var svgElement = tm_repeat_button.querySelector("svg");
     if (title != "${ locale.repeat_set }") {
         tm_repeat_button.setAttribute("data-title", "${locale.repeat_set}");
-        // check video duration per ${tm_repeat_time_check_period} ms
-        tm_interval_id = setInterval(function () {
-            if (tm_video.currentTime < tm_startTime || tm_video.currentTime > tm_endTime) tm_video.currentTime = tm_startTime;
-        }, tm_check_period)
+        clearInterval(tm_interval_id);
 
         svgElement.innerHTML = '';
 
@@ -110,7 +107,11 @@ function setRepeat() {
         svgElement.appendChild(gElement);
     } else {
         tm_repeat_button.setAttribute("data-title", "${locale.repeat_unset}");
-        clearInterval(tm_interval_id);
+        // check video duration per ${tm_repeat_time_check_period} ms
+        tm_interval_id = setInterval(function () {
+            if (tm_video.currentTime < tm_startTime || tm_video.currentTime > tm_endTime) tm_video.currentTime = tm_startTime;
+        }, tm_check_period)
+
         tm_interval_id = undefined;
 
         svgElement.innerHTML = '';
@@ -273,19 +274,19 @@ function set_cloud_segment(segment_list) {
         div.setAttribute("data-start", start);
         div.setAttribute("data-end", end);
         div.setAttribute("onclick", "load_segment_click(this)");
-    
+
         let icon = document.createElement('div');
         icon.setAttribute("class", "tm_more_contain_icon");
         div.appendChild(icon);
-    
+
         let span = document.createElement('span');
         span.textContent = name;
         div.appendChild(span);
-    
+
         let content = document.createElement('div');
         content.setAttribute("class", "tm_more_contain_content");
         div.appendChild(content);
-    
+
         tm_segment_content.appendChild(div);
     }
 
