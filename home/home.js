@@ -54,6 +54,11 @@ const initHomePage = () => {
             var targetChildElement = items.querySelector('ytd-guide-collapsible-section-entry-renderer.style-scope.ytd-guide-section-renderer');
 
             items.insertBefore(entry, targetChildElement);
+
+            // 找到具有class为"style-scope"和id为"contents"的元素
+            var element = document.getElementById("contents");
+
+            console.log(element);
         }
     }, 200);
 
@@ -62,7 +67,6 @@ const initPage = () => {
     if (IS_PAGE_HOME) {
         initHomePage();
     }
-    messageBlockinit();
 };
 
 initPage();

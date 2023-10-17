@@ -15,10 +15,11 @@ https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldm
 4. Deploy as a web app to get the API URL.
 
 ### Set Up Script
-1. Install the Tampermonkey extension.
-2. Add a new script and copy the content of `tampermonkey.js`.
-3. Update the `API` variable with the API URL.
-4. Save and you're done.
+1. Use `bundle.py` to boudle the full code `python bundle.py .\package.js`.
+2. Install the Tampermonkey extension.
+3. Add a new script and copy the content of `out.js`.
+4. Update the `API` variable with the API URL.
+5. Save and you're done.
 
 ## References
 - Modified from this article (in Chinese)

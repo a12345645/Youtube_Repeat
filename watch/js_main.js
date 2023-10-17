@@ -112,8 +112,6 @@ function setRepeat() {
             if (tm_video.currentTime < tm_startTime || tm_video.currentTime > tm_endTime) tm_video.currentTime = tm_startTime;
         }, tm_check_period)
 
-        tm_interval_id = undefined;
-
         svgElement.innerHTML = '';
 
         var gElement = document.createElementNS("http://www.w3.org/2000/svg", "g");
