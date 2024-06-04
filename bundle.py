@@ -69,7 +69,7 @@ def import_package(work_space, file, path):
 
 arguments = sys.argv
 if len(arguments) <= 1:
-    print('not input file')
+    print('not packet.js path')
     exit(0)
 
 
